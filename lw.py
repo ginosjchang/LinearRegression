@@ -7,7 +7,7 @@ test_data = dict()
 # test_data['X'] = np.
 
 class LW:
-    def __init__(self, data, indepent_num, k = 1):
+    def __init__(self, data, indepent_num, k = 0.2):
         self.x = data['X'].reshape(-1, indepent_num)
         self.y = data['y'].reshape(-1, 1)
         self.X = np.hstack((self.x, np.ones((len(self.x), 1))))
@@ -42,11 +42,13 @@ class LW:
         y_axis = self.predict(x_axis)
         plt.figure()
         plt.scatter(data1['X'], data1['y'], label="training")
-        plt.scatter(x_axis, y_axis, color='red', label="prediction", s=3)
+        # plt.scatter(x_axis, y_axis, color='red', label="prediction", s=3)
+        plt.plot(x_axis, y_axis, color='red', label="prediction")
         plt.xlabel("X")
         plt.ylabel("y")
         plt.legend()
-        plt.title("2D Locally weighted Regression")
+        plt.title("2D Locally weighted Regression (k=" + str(self.k) + ")")
+        plt.savefig("2dlwr"+str(self.k)+".png")
         plt.show()
     
     def predict_plot3D(self, x_axis):
@@ -58,7 +60,8 @@ class LW:
         ax.set_xlabel("X1")
         ax.set_ylabel("X2")
         ax.set_zlabel("y")
-        ax.set_title("3D Locally weighted Regression")
+        ax.set_title("3D Locally weighted Regression (k=" + str(self.k) + ")")
+        plt.savefig("3dlrw"+str(self.k)+".png")
         plt.show()
 
 if __name__=="__main__":
@@ -77,8 +80,8 @@ if __name__=="__main__":
     model2 = LW(data2, 2)
     #Create predict data
     x_axis = []
-    for x1 in range(-3, 4):
-        for x2 in range(-3, 4):
+    for x1 in np.arange(-3, 4, 0.5):
+        for x2 in np.arange(-3, 4, 0.5):
             x_axis.append([x1, x2])
     x_axis = np.array(x_axis)
     #show predict result

@@ -39,11 +39,13 @@ class KNN:
         y_axis = self.predict(x_axis)
         plt.figure()
         plt.scatter(self.x, self.y, label="training data")
-        plt.scatter(x_axis, y_axis, color="red", label="prediction", s=3)
+        # plt.scatter(x_axis, y_axis, color="red", label="prediction", s=3)
+        plt.plot(x_axis, y_axis, color="red", label="prediction")
         plt.xlabel("X")
         plt.ylabel("y")
         plt.legend()
         plt.title("2D KNN Linear Regression (k=" + str(self.k) + ")")
+        plt.savefig("2dknnl"+str(self.k))
         plt.show()
     
     def predict_plot3D(self, x_axis):
@@ -56,7 +58,8 @@ class KNN:
         ax.set_xlabel("X1")
         ax.set_ylabel("X2")
         ax.set_zlabel("y")
-        ax.set_title("3D KNN Linear Regression")
+        ax.set_title("3D KNN Linear Regression (k=" + str(self.k) + ")")
+        plt.savefig("3dknnl"+str(self.k))
         plt.show()
             
 if __name__=="__main__":
@@ -75,8 +78,8 @@ if __name__=="__main__":
     model2 = KNN(data2, 2)
     #Create predict data
     x_axis = []
-    for x1 in range(-3, 4):
-        for x2 in range(-3, 4):
+    for x1 in np.arange(-3, 4, 0.5):
+        for x2 in np.arange(-3, 4, 0.5):
             x_axis.append([x1, x2])
     x_axis = np.array(x_axis)
     #show predict result
